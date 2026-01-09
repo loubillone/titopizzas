@@ -1,0 +1,107 @@
+// Base de datos de productos
+const productos = {
+  pizzas: [
+    {
+      id: 'pizza-001',
+      nombre: 'Pizza Muzzarella',
+      precio: 2500,
+      categoria: 'pizzas',
+      imagen: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&h=400&fit=crop'
+    },
+    {
+      id: 'pizza-002',
+      nombre: 'Pizza Jamón y Morrón',
+      precio: 3200,
+      categoria: 'pizzas',
+      imagen: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop'
+    },
+    {
+      id: 'pizza-003',
+      nombre: 'Pizza Fugazetta',
+      precio: 3500,
+      categoria: 'pizzas',
+      imagen: 'https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=600&h=400&fit=crop'
+    }
+  ],
+  pastas: [
+    {
+      id: 'pasta-001',
+      nombre: 'Fideos de Morrón',
+      precio: 2800,
+      categoria: 'pastas',
+      imagen: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&h=400&fit=crop'
+    },
+    {
+      id: 'pasta-002',
+      nombre: 'Fideos Verdes',
+      precio: 3000,
+      categoria: 'pastas',
+      imagen: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&h=400&fit=crop'
+    },
+    {
+      id: 'pasta-003',
+      nombre: 'Ñoquis',
+      precio: 2200,
+      categoria: 'pastas',
+      imagen: 'https://images.unsplash.com/photo-1609501676725-7186f1f4a1ed?w=600&h=400&fit=crop&q=80'
+    }
+  ]
+};
+
+// Función para renderizar productos
+function renderizarProductos() {
+  const pizzasGrid = document.getElementById('pizzas-grid');
+  const pastasGrid = document.getElementById('pastas-grid');
+
+  // Renderizar pizzas
+  productos.pizzas.forEach(producto => {
+    const card = crearProductoCard(producto);
+    pizzasGrid.appendChild(card);
+  });
+
+  // Renderizar pastas
+  productos.pastas.forEach(producto => {
+    const card = crearProductoCard(producto);
+    pastasGrid.appendChild(card);
+  });
+}
+
+// Función para crear una tarjeta de producto
+function crearProductoCard(producto) {
+  const card = document.createElement('div');
+  card.className = 'producto-card';
+  card.dataset.productoId = producto.id;
+
+  // URL alternativa para ñoquis (gnocchi) si la principal falla
+  const imagenAlternativa = producto.id === 'pasta-003' 
+    ? 'https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?w=600&h=400&fit=crop&q=80'
+    : producto.imagen;
+
+  card.innerHTML = `
+    <div class="producto-imagen-container">
+      <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen" 
+           onerror="if(this.src !== '${imagenAlternativa}') { this.src='${imagenAlternativa}'; } else { this.style.display='none'; this.parentElement.innerHTML='<div class=\\'placeholder-imagen\\'><span>${producto.nombre}</span></div>'; }">
+    </div>
+    <div class="producto-nombre">${producto.nombre}</div>
+    <div class="producto-precio">$${producto.precio.toLocaleString('es-AR')}</div>
+    <div class="producto-controls">
+      <div class="cantidad-control">
+        <button class="btn-cantidad" onclick="decrementarCantidad('${producto.id}')">-</button>
+        <span class="cantidad-display" id="cantidad-${producto.id}">0</span>
+        <button class="btn-cantidad" onclick="incrementarCantidad('${producto.id}')">+</button>
+      </div>
+      <button class="btn-agregar" onclick="agregarAlCarrito('${producto.id}')" id="btn-${producto.id}">
+        Agregar
+      </button>
+    </div>
+  `;
+
+  return card;
+}
+
+// Función para obtener un producto por ID
+function obtenerProductoPorId(id) {
+  const todosLosProductos = [...productos.pizzas, ...productos.pastas];
+  return todosLosProductos.find(p => p.id === id);
+}
+
