@@ -3,6 +3,7 @@ let carrito = [];
 
 // Configuración del alias para pagos
 const ALIAS_PAGO = "titopizzas";
+const TITULAR_PAGO = "José María Billone";
 
 // Función para incrementar cantidad en el selector
 function incrementarCantidad(productoId) {
@@ -195,6 +196,10 @@ function generarMensajeWhatsApp() {
 
   let mensaje = "*PEDIDO PARA TITO - PIZZAS Y PASTAS*\n\n";
 
+  // Información de envío
+  mensaje += "*ENVÍO:*\n";
+  mensaje += "Envío a cargo del cliente a través de Uber moto\n\n";
+
   // Datos del cliente
   mensaje += "*DATOS DEL CLIENTE:*\n";
   mensaje += `Nombre: ${nombre}\n`;
@@ -219,6 +224,7 @@ function generarMensajeWhatsApp() {
   mensaje += `*TOTAL: $${total.toLocaleString("es-AR")}*\n\n`;
   mensaje += `*DATOS PARA EL PAGO:*\n`;
   mensaje += `Alias: ${ALIAS_PAGO}\n`;
+  mensaje += `Titular: ${TITULAR_PAGO}\n`;
   mensaje += `Enviar comprobante de pago para confirmar su compra\n\n`;
   mensaje += "Gracias por tu pedido!";
 
