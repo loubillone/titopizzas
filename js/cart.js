@@ -107,9 +107,9 @@ function actualizarCarrito() {
     totalPrecio.textContent = "$0";
     btnEnviar.disabled = true;
     // Ocultar formulario si el carrito está vacío
-    const formulario = document.getElementById('formulario-pedido');
+    const formulario = document.getElementById("formulario-pedido");
     if (formulario) {
-      formulario.style.display = 'none';
+      formulario.style.display = "none";
     }
     return;
   }
@@ -154,11 +154,11 @@ function actualizarCarrito() {
   // Actualizar total
   totalPrecio.textContent = `$${total.toLocaleString("es-AR")}`;
   btnEnviar.disabled = false;
-  
+
   // Mostrar formulario si hay items en el carrito
-  const formulario = document.getElementById('formulario-pedido');
+  const formulario = document.getElementById("formulario-pedido");
   if (formulario) {
-    formulario.style.display = 'block';
+    formulario.style.display = "block";
   }
 }
 
@@ -169,37 +169,39 @@ function generarMensajeWhatsApp() {
   }
 
   // Obtener datos del formulario
-  const nombre = document.getElementById('nombre-cliente').value.trim();
-  const domicilio = document.getElementById('domicilio-cliente').value.trim();
+  const nombre = document.getElementById("nombre-cliente").value.trim();
+  const domicilio = document.getElementById("domicilio-cliente").value.trim();
 
   // Validar que los campos estén completos
   if (!nombre || !domicilio) {
-    alert('Por favor, completa todos los datos del pedido (nombre y domicilio)');
+    alert(
+      "Por favor, completa todos los datos del pedido (nombre y domicilio)"
+    );
     return "";
   }
 
   // Generar fecha y hora automáticamente
   const ahora = new Date();
-  const fechaFormateada = ahora.toLocaleDateString('es-AR', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  const fechaFormateada = ahora.toLocaleDateString("es-AR", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
-  const horaFormateada = ahora.toLocaleTimeString('es-AR', {
-    hour: '2-digit',
-    minute: '2-digit'
+  const horaFormateada = ahora.toLocaleTimeString("es-AR", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
 
-  let mensaje = "*PEDIDO PARA TITO - COMIDAS CONGELADAS*\n\n";
-  
+  let mensaje = "*PEDIDO PARA TITO - PIZZAS Y PASTAS*\n\n";
+
   // Datos del cliente
   mensaje += "*DATOS DEL CLIENTE:*\n";
   mensaje += `Nombre: ${nombre}\n`;
   mensaje += `Domicilio: ${domicilio}\n`;
   mensaje += `Fecha del pedido: ${fechaFormateada}\n`;
   mensaje += `Hora del pedido: ${horaFormateada}\n\n`;
-  
+
   mensaje += "*DETALLE DEL PEDIDO:*\n\n";
 
   carrito.forEach((item, index) => {
@@ -230,6 +232,12 @@ function enviarPedidoWhatsApp() {
   }
 
   const mensaje = generarMensajeWhatsApp();
+
+  // Si el mensaje está vacío (por validación), no continuar
+  if (!mensaje) {
+    return;
+  }
+
   // Reemplaza este número con el número de WhatsApp de Tito (formato: código de país + número sin espacios ni guiones)
   const numeroWhatsApp = "5493815187503"; // Ejemplo: Argentina +54 9 11 1234-5678
 
@@ -237,5 +245,35 @@ function enviarPedidoWhatsApp() {
     mensaje
   )}`;
   window.open(url, "_blank");
+
+  // Limpiar todo después de enviar el pedido
+  limpiarPedido();
 }
 
+// Función para limpiar el pedido completo
+function limpiarPedido() {
+  // Limpiar el carrito
+  carrito = [];
+
+  // Limpiar los campos del formulario
+  const nombreInput = document.getElementById("nombre-cliente");
+  const domicilioInput = document.getElementById("domicilio-cliente");
+  if (nombreInput) nombreInput.value = "";
+  if (domicilioInput) domicilioInput.value = "";
+
+  // Resetear todos los contadores de cantidad de productos
+  const todosLosProductos = [...productos.pizzas, ...productos.pastas];
+  todosLosProductos.forEach((producto) => {
+    const cantidadDisplay = document.getElementById(`cantidad-${producto.id}`);
+    if (cantidadDisplay) {
+      cantidadDisplay.textContent = "0";
+    }
+    const btnAgregar = document.getElementById(`btn-${producto.id}`);
+    if (btnAgregar) {
+      btnAgregar.disabled = true;
+    }
+  });
+
+  // Actualizar la vista del carrito
+  actualizarCarrito();
+}
