@@ -2,7 +2,7 @@
 let carrito = [];
 
 // Configuración del alias para pagos
-const ALIAS_PAGO = "TITO.COMIDAS"; // Cambia esto por tu alias real
+const ALIAS_PAGO = "titopizzas";
 
 // Función para incrementar cantidad en el selector
 function incrementarCantidad(productoId) {
@@ -238,8 +238,7 @@ function enviarPedidoWhatsApp() {
     return;
   }
 
-  // Reemplaza este número con el número de WhatsApp de Tito (formato: código de país + número sin espacios ni guiones)
-  const numeroWhatsApp = "5493815187503"; // Ejemplo: Argentina +54 9 11 1234-5678
+  const numeroWhatsApp = "5493816788949";
 
   const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
     mensaje
