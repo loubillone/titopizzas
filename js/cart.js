@@ -106,9 +106,10 @@ function actualizarCarrito() {
       '<p class="carrito-vacio">Tu carrito está vacío</p>';
     totalPrecio.textContent = "$0";
     btnEnviar.disabled = true;
-    const btnPagar = document.getElementById('btn-pagar-alias');
-    if (btnPagar) {
-      btnPagar.disabled = true;
+    // Ocultar formulario si el carrito está vacío
+    const formulario = document.getElementById('formulario-pedido');
+    if (formulario) {
+      formulario.style.display = 'none';
     }
     return;
   }
@@ -153,6 +154,12 @@ function actualizarCarrito() {
   // Actualizar total
   totalPrecio.textContent = `$${total.toLocaleString("es-AR")}`;
   btnEnviar.disabled = false;
+  
+  // Mostrar formulario si hay items en el carrito
+  const formulario = document.getElementById('formulario-pedido');
+  if (formulario) {
+    formulario.style.display = 'block';
+  }
 }
 
 // Función para generar mensaje de WhatsApp
@@ -161,8 +168,39 @@ function generarMensajeWhatsApp() {
     return "";
   }
 
-  let mensaje = "🍕 *Pedido para Tito - Comidas Congeladas*\n\n";
-  mensaje += "📋 *Detalle del pedido:*\n\n";
+  // Obtener datos del formulario
+  const nombre = document.getElementById('nombre-cliente').value.trim();
+  const domicilio = document.getElementById('domicilio-cliente').value.trim();
+
+  // Validar que los campos estén completos
+  if (!nombre || !domicilio) {
+    alert('Por favor, completa todos los datos del pedido (nombre y domicilio)');
+    return "";
+  }
+
+  // Generar fecha y hora automáticamente
+  const ahora = new Date();
+  const fechaFormateada = ahora.toLocaleDateString('es-AR', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  const horaFormateada = ahora.toLocaleTimeString('es-AR', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
+  let mensaje = "*PEDIDO PARA TITO - COMIDAS CONGELADAS*\n\n";
+  
+  // Datos del cliente
+  mensaje += "*DATOS DEL CLIENTE:*\n";
+  mensaje += `Nombre: ${nombre}\n`;
+  mensaje += `Domicilio: ${domicilio}\n`;
+  mensaje += `Fecha del pedido: ${fechaFormateada}\n`;
+  mensaje += `Hora del pedido: ${horaFormateada}\n\n`;
+  
+  mensaje += "*DETALLE DEL PEDIDO:*\n\n";
 
   carrito.forEach((item, index) => {
     const subtotal = item.precio * item.cantidad;
@@ -176,10 +214,11 @@ function generarMensajeWhatsApp() {
     (sum, item) => sum + item.precio * item.cantidad,
     0
   );
-  mensaje += `💰 *Total: $${total.toLocaleString("es-AR")}*\n\n`;
-  mensaje += `💳 *Datos para el pago:*\n`;
-  mensaje += `Alias: ${ALIAS_PAGO}\n\n`;
-  mensaje += "Gracias por tu pedido! 🎉";
+  mensaje += `*TOTAL: $${total.toLocaleString("es-AR")}*\n\n`;
+  mensaje += `*DATOS PARA EL PAGO:*\n`;
+  mensaje += `Alias: ${ALIAS_PAGO}\n`;
+  mensaje += `Enviar comprobante de pago para confirmar su compra\n\n`;
+  mensaje += "Gracias por tu pedido!";
 
   return mensaje;
 }

@@ -309,6 +309,58 @@ body {
   min-height: 200px;
 }
 
+/* Formulario de pedido */
+.formulario-pedido {
+  background-color: var(--color-white);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.formulario-titulo {
+  font-size: 1.5rem;
+  color: var(--color-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.formulario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.form-input {
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
 .carrito-vacio {
   text-align: center;
   color: #999;
@@ -468,5 +520,13 @@ body {
 
   .item-precio {
     margin-right: 0;
+  }
+
+  .formulario-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formulario-pedido {
+    padding: 1.5rem;
   }
 }

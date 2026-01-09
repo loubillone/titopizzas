@@ -66,6 +66,22 @@
           <div class="carrito-items" id="carrito-items">
             <p class="carrito-vacio">Tu carrito está vacío</p>
           </div>
+          
+          <!-- Formulario de datos del cliente -->
+          <div class="formulario-pedido" id="formulario-pedido" style="display: none;">
+            <h3 class="formulario-titulo">Datos para la entrega</h3>
+            <div class="formulario-grid">
+              <div class="form-group">
+                <label for="nombre-cliente">Nombre completo *</label>
+                <input type="text" id="nombre-cliente" class="form-input" placeholder="Ingresa tu nombre" required>
+              </div>
+              <div class="form-group">
+                <label for="domicilio-cliente">Domicilio *</label>
+                <input type="text" id="domicilio-cliente" class="form-input" placeholder="Ingresa tu dirección" required>
+              </div>
+            </div>
+          </div>
+
           <div class="carrito-total">
             <p class="total-text">Total: <span id="total-precio">$0</span></p>
             <button class="btn-whatsapp" id="btn-enviar-whatsapp" disabled>
