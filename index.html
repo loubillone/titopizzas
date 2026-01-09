@@ -1,9 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tito - Pizzas y Pastas</title>
   </head>
-  <body></body>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="logo-container">
+          <img src="img/logotito.png" alt="Logo Tito" class="logo" />
+        </div>
+        <nav class="nav">
+          <a href="#productos">Productos</a>
+          <a href="#carrito" class="carrito-link">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="carrito-badge" id="carrito-badge">0</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      class="hero"
+      style="
+        background-image: linear-gradient(
+            rgba(10, 46, 80, 0.7),
+            rgba(183, 17, 3, 0.7)
+          ),
+          url('img/titopizza.png');
+      "
+    >
+      <div class="container">
+        <h1 class="hero-title">Comidas Congeladas de Calidad</h1>
+        <p class="hero-subtitle">Pizzas y Pastas listas para disfrutar</p>
+      </div>
+    </section>
+
+    <!-- Productos Section -->
+    <section id="productos" class="productos">
+      <div class="container">
+        <!-- Pizzas -->
+        <h2 class="section-title">Pizzas</h2>
+        <div class="productos-grid" id="pizzas-grid">
+          <!-- Los productos se cargarán dinámicamente -->
+        </div>
+
+        <!-- Pastas -->
+        <h2 class="section-title">Pastas</h2>
+        <div class="productos-grid" id="pastas-grid">
+          <!-- Los productos se cargarán dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Carrito Section -->
+    <section id="carrito" class="carrito">
+      <div class="container">
+        <h2 class="section-title">Tu Pedido</h2>
+        <div class="carrito-container">
+          <div class="carrito-items" id="carrito-items">
+            <p class="carrito-vacio">Tu carrito está vacío</p>
+          </div>
+
+          <!-- Formulario de datos del cliente -->
+          <div
+            class="formulario-pedido"
+            id="formulario-pedido"
+            style="display: none"
+          >
+            <h3 class="formulario-titulo">Datos para la entrega</h3>
+            <div class="formulario-grid">
+              <div class="form-group">
+                <label for="nombre-cliente">Nombre completo *</label>
+                <input
+                  type="text"
+                  id="nombre-cliente"
+                  class="form-input"
+                  placeholder="Ingresa tu nombre"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="domicilio-cliente">Domicilio *</label>
+                <input
+                  type="text"
+                  id="domicilio-cliente"
+                  class="form-input"
+                  placeholder="Ingresa tu dirección"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="carrito-total">
+            <p class="total-text">Total: <span id="total-precio">$0</span></p>
+            <button class="btn-whatsapp" id="btn-enviar-whatsapp" disabled>
+              <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>
+          &copy; 2026 Tito - Pizzas y pastas. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>
