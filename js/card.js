@@ -175,9 +175,13 @@ function generarMensajeWhatsApp() {
 
   // Validar que los campos estén completos
   if (!nombre || !domicilio) {
-    alert(
-      "Por favor, completa todos los datos del pedido (nombre y domicilio)"
-    );
+    Swal.fire({
+      icon: 'warning',
+      title: 'Datos incompletos',
+      text: 'Por favor, completa todos los datos del pedido (nombre y domicilio)',
+      confirmButtonColor: '#E98E02',
+      confirmButtonText: 'Entendido'
+    });
     return "";
   }
 
