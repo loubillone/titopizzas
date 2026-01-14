@@ -12,9 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+        const headerHeight = document.querySelector('.header').offsetHeight;
+        const targetPosition = target.offsetTop - headerHeight - 20; // 20px de espacio adicional
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
         });
       }
     });
