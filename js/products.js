@@ -7,6 +7,7 @@ const productos = {
       precio: 8000,
       categoria: "pizzas",
       imagen: "../img/pizza-muzza.jpg",
+      peso: 800,
     },
     {
       id: "pizza-002",
@@ -14,6 +15,7 @@ const productos = {
       precio: 11000,
       categoria: "pizzas",
       imagen: "../img/pizza-jamon.jpg",
+      peso: 900,
     },
     {
       id: "pizza-003",
@@ -21,6 +23,7 @@ const productos = {
       precio: 10000,
       categoria: "pizzas",
       imagen: "../img/pizza-fuga.jpg",
+      peso: 950,
     },
   ],
   pastas: [
@@ -126,7 +129,7 @@ function crearProductoCard(producto) {
     }</span></div>'; }">
       </div>
       <div class="producto-nombre">${producto.nombre}</div>
-      <div class="producto-porciones">8 porciones</div>
+      <div class="producto-porciones">${producto.peso || 0} grs (8 porciones)</div>
       <div class="producto-precio">$${producto.precio.toLocaleString(
         "es-AR"
       )}</div>
