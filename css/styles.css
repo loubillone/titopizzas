@@ -142,6 +142,15 @@ body {
   margin-top: 0;
 }
 
+.texto-pizzas {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--color-secondary);
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+  font-style: italic;
+}
+
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -367,6 +376,14 @@ body {
 .texto-envio i {
   color: var(--color-primary);
   font-size: 1.2rem;
+}
+
+.texto-envio-zonas {
+  color: var(--color-dark);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0.5rem 0 0 0;
+  text-align: center;
 }
 
 .carrito-items {
