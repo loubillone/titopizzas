@@ -646,6 +646,10 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .opinion-estrellas {
+    justify-content: center;
+  }
+
   .header .container {
     flex-direction: column;
     gap: 1rem;
