@@ -39,7 +39,7 @@ const productos = {
       id: "empanada-001",
       nombre: "Empanada de Carne",
       precioDocena: 10000,
-      precioMediaDocena: 5000,
+      precioMediaDocena: 5500,
       categoria: "empanadas",
       imagen: "img/empanadas.jpeg",
     },
@@ -47,7 +47,7 @@ const productos = {
       id: "empanada-002",
       nombre: "Empanada de Pollo",
       precioDocena: 10000,
-      precioMediaDocena: 5000,
+      precioMediaDocena: 5500,
       categoria: "empanadas",
       imagen: "img/empanadas.jpeg",
     },
@@ -156,16 +156,21 @@ function crearProductoCard(producto) {
       </div>
     `;
     // Actualizar precio mostrado al cambiar opción
-    card.querySelectorAll(`input[name="opcion-${producto.id}"]`).forEach((radio) => {
-      radio.addEventListener("change", function () {
-        const precioDisplay = document.getElementById(`precio-display-${producto.id}`);
-        if (precioDisplay) {
-          precioDisplay.textContent = this.value === "docena"
-            ? `$${producto.precioDocena.toLocaleString("es-AR")}`
-            : `$${producto.precioMediaDocena.toLocaleString("es-AR")}`;
-        }
+    card
+      .querySelectorAll(`input[name="opcion-${producto.id}"]`)
+      .forEach((radio) => {
+        radio.addEventListener("change", function () {
+          const precioDisplay = document.getElementById(
+            `precio-display-${producto.id}`
+          );
+          if (precioDisplay) {
+            precioDisplay.textContent =
+              this.value === "docena"
+                ? `$${producto.precioDocena.toLocaleString("es-AR")}`
+                : `$${producto.precioMediaDocena.toLocaleString("es-AR")}`;
+          }
+        });
       });
-    });
     return card;
   }
 
