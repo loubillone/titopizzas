@@ -67,6 +67,45 @@ function agregarAlCarrito(productoId) {
   actualizarCarrito();
 }
 
+// Función para agregar empanadas al carrito (docena o media docena)
+function agregarEmpanadaAlCarrito(productoId) {
+  const cantidadDisplay = document.getElementById(`cantidad-${productoId}`);
+  const cantidad = parseInt(cantidadDisplay?.textContent || "0", 10);
+
+  if (cantidad === 0) return;
+
+  const producto = obtenerProductoPorId(productoId);
+  if (!producto || producto.categoria !== "empanadas") return;
+
+  const opcionRadio = document.querySelector(
+    `input[name="opcion-${productoId}"]:checked`
+  );
+  const opcion = opcionRadio ? opcionRadio.value : "docena";
+  const precio =
+    opcion === "docena" ? producto.precioDocena : producto.precioMediaDocena;
+  const opcionLabel = opcion === "docena" ? "Docena" : "Media docena";
+  const idCarrito = `${productoId}-${opcion}`;
+  const nombreCarrito = `${producto.nombre} - ${opcionLabel}`;
+
+  const itemExistente = carrito.find((item) => item.id === idCarrito);
+  if (itemExistente) {
+    itemExistente.cantidad += cantidad;
+  } else {
+    carrito.push({
+      id: idCarrito,
+      nombre: nombreCarrito,
+      precio: precio,
+      cantidad: cantidad,
+    });
+  }
+
+  cantidadDisplay.textContent = "0";
+  const btnAgregar = document.getElementById(`btn-${productoId}`);
+  if (btnAgregar) btnAgregar.disabled = true;
+
+  actualizarCarrito();
+}
+
 // Función para eliminar producto del carrito
 function eliminarDelCarrito(productoId) {
   carrito = carrito.filter((item) => item.id !== productoId);
@@ -176,11 +215,11 @@ function generarMensajeWhatsApp() {
   // Validar que los campos estén completos
   if (!nombre || !domicilio) {
     Swal.fire({
-      icon: 'warning',
-      title: 'Datos incompletos',
-      text: 'Por favor, completa todos los datos del pedido (nombre y domicilio)',
-      confirmButtonColor: '#E98E02',
-      confirmButtonText: 'Entendido'
+      icon: "warning",
+      title: "Datos incompletos",
+      text: "Por favor, completa todos los datos del pedido (nombre y domicilio)",
+      confirmButtonColor: "#E98E02",
+      confirmButtonText: "Entendido",
     });
     return "";
   }
@@ -248,7 +287,7 @@ function enviarPedidoWhatsApp() {
     return;
   }
 
-  const numeroWhatsApp = "5493816788949";
+  const numeroWhatsApp = "5493813310252";
 
   const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
     mensaje
@@ -271,7 +310,11 @@ function limpiarPedido() {
   if (domicilioInput) domicilioInput.value = "";
 
   // Resetear todos los contadores de cantidad de productos
-  const todosLosProductos = [...productos.pizzas, ...productos.pastas];
+  const todosLosProductos = [
+    ...productos.pizzas,
+    ...productos.empanadas,
+    ...productos.pastas,
+  ];
   todosLosProductos.forEach((producto) => {
     const cantidadDisplay = document.getElementById(`cantidad-${producto.id}`);
     if (cantidadDisplay) {
