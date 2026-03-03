@@ -14,7 +14,7 @@ const productos = {
       nombre: "Pizza Jamón y Morrón",
       precio: 11000,
       categoria: "pizzas",
-      imagen: "../img/pizza-jamon.jpg",
+      imagen: "../img/pizza-jamon.jpeg",
       peso: 900,
     },
     {
@@ -27,27 +27,35 @@ const productos = {
     },
     {
       id: "pizza-004",
-      nombre: "Pizza Calabreza",
+      nombre: "Pizza Cantimpalo",
       precio: 11000,
       categoria: "pizzas",
       imagen: "../img/pizza-calabreza.webp",
       peso: 900,
+    },
+    {
+      id: "pizza-005",
+      nombre: "Pizza Roquefort",
+      precio: 13000,
+      categoria: "pizzas",
+      imagen: "../img/pizza-roquefort.jpeg",
+      peso: 1100,
     },
   ],
   empanadas: [
     {
       id: "empanada-001",
       nombre: "Empanada de Carne",
-      precioDocena: 10000,
-      precioMediaDocena: 5500,
+      precioDocena: 11000,
+      precioMediaDocena: 6000,
       categoria: "empanadas",
       imagen: "img/empanadas.jpeg",
     },
     {
       id: "empanada-002",
       nombre: "Empanada de Pollo",
-      precioDocena: 10000,
-      precioMediaDocena: 5500,
+      precioDocena: 11000,
+      precioMediaDocena: 6000,
       categoria: "empanadas",
       imagen: "img/empanadas.jpeg",
     },
@@ -102,7 +110,7 @@ function renderizarProductos() {
   });
 }
 
-// Función para crear una tarjeta de producto
+// Tarjeta Profucto
 function crearProductoCard(producto) {
   const card = document.createElement("div");
   const esPasta = producto.categoria === "pastas";
@@ -161,7 +169,7 @@ function crearProductoCard(producto) {
       .forEach((radio) => {
         radio.addEventListener("change", function () {
           const precioDisplay = document.getElementById(
-            `precio-display-${producto.id}`
+            `precio-display-${producto.id}`,
           );
           if (precioDisplay) {
             precioDisplay.textContent =
@@ -179,11 +187,11 @@ function crearProductoCard(producto) {
     card.innerHTML = `
       <div class="producto-imagen-container">
         <img src="${producto.imagen}" alt="${
-      producto.nombre
-    }" class="producto-imagen" 
+          producto.nombre
+        }" class="producto-imagen" 
              onerror="if(this.src !== '${imagenAlternativa}') { this.src='${imagenAlternativa}'; } else { this.style.display='none'; this.parentElement.innerHTML='<div class=\\'placeholder-imagen\\'><span>${
-      producto.nombre
-    }</span></div>'; }">
+               producto.nombre
+             }</span></div>'; }">
         <div class="overlay-proximamente">
           <span class="texto-proximamente">Próximamente</span>
         </div>
@@ -191,7 +199,7 @@ function crearProductoCard(producto) {
       <div class="producto-nombre">${producto.nombre}</div>
       <div class="producto-porciones">2 porciones</div>
       <div class="producto-precio">$${producto.precio.toLocaleString(
-        "es-AR"
+        "es-AR",
       )}</div>
       <div class="producto-controls">
         <div class="cantidad-control">
@@ -208,18 +216,18 @@ function crearProductoCard(producto) {
     card.innerHTML = `
       <div class="producto-imagen-container">
         <img src="${producto.imagen}" alt="${
-      producto.nombre
-    }" class="producto-imagen" 
+          producto.nombre
+        }" class="producto-imagen" 
              onerror="if(this.src !== '${imagenAlternativa}') { this.src='${imagenAlternativa}'; } else { this.style.display='none'; this.parentElement.innerHTML='<div class=\\'placeholder-imagen\\'><span>${
-      producto.nombre
-    }</span></div>'; }">
+               producto.nombre
+             }</span></div>'; }">
       </div>
       <div class="producto-nombre">${producto.nombre}</div>
       <div class="producto-porciones">${
         producto.peso || 0
       } grs (8 porciones)</div>
       <div class="producto-precio">$${producto.precio.toLocaleString(
-        "es-AR"
+        "es-AR",
       )}</div>
       <div class="producto-controls">
         <div class="cantidad-control">
@@ -243,7 +251,7 @@ function crearProductoCard(producto) {
   return card;
 }
 
-// Función para obtener un producto por ID (id base, sin sufijo docena/media)
+// Función para obtener un producto por ID
 function obtenerProductoPorId(id) {
   const idBase = id.replace(/-docena$|-media$/, "");
   const todosLosProductos = [
